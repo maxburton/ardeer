@@ -1,0 +1,26 @@
+body {
+	background-color: #030303;
+}
+h1 {
+	font-family: courier, courier-new, serif;
+	font-size: 20pt;
+	color: #00ff00;
+	padding-bottom: 54px;
+	text-align: center;
+}
+h2{
+	font-family: courier, courier-new, serif;
+	font-size: 16pt;
+	color: #00ff00;
+}
+
+p {
+	color: #00ff00;
+	text-align: center;
+	font-family: Trebuchet MS,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Tahoma,sans-serif; 
+}
+img.style {
+	display: block;
+	margin-left: auto;
+    margin-right: auto;
+}
