@@ -25,6 +25,7 @@
         $cookie_name = "userID";
         $cookie_value = $last_id;
         setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
+        setcookie("username", $name, time() + (86400), "/"); // 86400 = 1 day
         } else {
     echo "Error creating table: " . $connection->error;
     }
