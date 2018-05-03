@@ -68,8 +68,8 @@
             }
         }else{
             var input = prompt("Please enter a name:");
-            if (input == null || input == "" || input.length > 50) {
-                alert("Invalid name format, enter a name 50 characters or less");
+            if (input == null || input == "" || input.length > 20) {
+                alert("Invalid name format, enter a name 20 characters or less");
             } else {
                 location.href = "./newuser.php?name=" + input;
             }

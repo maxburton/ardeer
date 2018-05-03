@@ -1,6 +1,7 @@
 <?php include "/var/www/inc/dbinfo.inc"; ?>
 <html>
 <head>
+	<!--<script src="jquery-3.3.1.min.js"></script>-->
     <?php
     $id = "0";
     if(isset($_COOKIE["userID"])) {
@@ -46,16 +47,31 @@
     }
     ?>
     <button id="submitURL" class="submit-button" >Submit URL</button>
-    <script type="text/javascript">
-        document.getElementById("submitURL").onclick = function () {
+	<button id="homeURL" class="home-button" >Return</button>
+    <script>
+        document.getElementById("submitURL").onclick = function(){		
             var roomid = <?php echo $_GET['room']; ?>;
             var input = prompt("Enter Youtube URL");
-            if (input == null || input == "") {
+			input = input + "&";
+			var valid = false;
+			var stump = "";
+			if (input.includes("watch?v=")){
+				stump = input.match(/(?<=watch\?v=)(.*?)(?=&)/gmi);
+				valid = true;
+			}else if(input.includes("youtu.be/")){
+				stump = input.match(/(?<=youtu\.be\/)(.*?)(?=&)/gmi);
+				valid = true;
+			}
+            if (input == null || input == "" || valid == false) {
                 alert("Invalid URL format, try again");
             } else {
-                location.href = "./submit.php?url=" + input + "&room=" + roomid;
+                location.href = "./submit.php?url=" + stump + "&room=" + roomid;
             }
         }
+		
+		document.getElementById("homeURL").onclick = function(){		
+			window.location.href = './';
+		}
     </script>
 </body>
 </html>
