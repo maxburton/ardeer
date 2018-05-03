@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Video Feed (N Wing cam 12)</title>
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
+	</head>
+	<body>
+		<div>
+			<h1>Live Feed:</h1>
+			<img border="0" class="style" src="./live.feed">
+			<br>
+			<h3 class="white">Recorded Logs:</h3>
+		</div>
+		<div class="white">
+			<script>
+				<maxdb>
+					{Select}:[@Date="22111963"];{Slice}:["12:00:00" - "13:00:00"];{Capture}:[Video:["14s":]];
+					{Display}:["Time Recorded":Video.TIME,"Video Snapshot":Video.VIDEO,"Audio Snapshot":Video.AUDIO];
+				</maxdb>
+			</script>
+			<table border="1">
+				<tr>
+					<th>Time Recorded</th>
+					<th>Video Snapshot</th>
+					<th>Audio Snapshot</th>
+				</tr>
+				<tr>
+					<td>12:00:38</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log1.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:01:13</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log2.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:03:01</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log3.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:05:19</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log4.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:06:21</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log5.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:15:45</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log6.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:29:59</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log7.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:30:01</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log8.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:32:08</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log9.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:38:15</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log10.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:53:24</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log11.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:57:02</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log12.mp3">Audio</a></td>
+				</tr>
+				<tr>
+					<td>12:59:28</td>
+					<td>File Deleted</td>
+					<td><a href="/logs/log13.mp3">Audio</a></td>
+				</tr>
+			</table>
+				
+		</div>
+		
+	</body>
+</html>

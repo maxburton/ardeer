@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Signal Lost</title>
+		<link rel="stylesheet" type="text/css" href="/css/rstyle.css">
+	</head>
+	<body>
+		<div>
+			<h1>camera maintenance hub. access restricted to feed staff only.</h1>
+		</div>
+		<map name="red">
+			<area shape="circle" coords="250,250,250" href="/cipher/camfeed/N Wing cam 13.html">
+		</map>
+		<img border="0" class="style"usemap="red" src="./3z.jpg">
+	</body>
+</html>
