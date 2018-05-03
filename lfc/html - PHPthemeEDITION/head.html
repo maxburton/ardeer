@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<a name="top"></a>
+		<link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAABMLAAATCwAAAAAA
+AAAAAAAAAP/ycHD9////////////cnL8/8vL/f/39///kpL8/5iY+/+srPz/eHj9/wAA//8AAP//
+AAD/2QAA/zcAAP8GDAz+8///////////Tk79/2xs/P//////n5/9/15e/P+6uvv/v7/+/19f/P8A
+AP//AAD//wAA//8AAP//AAD/MC0t/fT/////29v+/zU1/f///////////8/P/f/IyP3/xcX5/4GB
+9f+5uf7/Tk79/wAA//8AAP//AAD//wAA/64ZGf7z/////83N/v9qavz//////8jI/f/e3v3/////
+/7+/+v9oaPj/r6/8/6en/P8pKf3/AAD//wAA//8AAP/0AAD/8s7O/f//////gID7/8PD/f9RUf3/
+hIT8/+Tk/v/X1/7/e3v6/2Ji+v/MzP3/enr8/wAA//8AAP//AAD/8gAA//IeHv7//////+Tk/v+1
+tf3/QUH9/3R0/P+8vP7//f3//3Z2+/9jY/r/0ND9/7a2+/8vL/3/AAD//wAA//IAAP/yAAD//ykp
++////////////2Ji/P9ZWf3/i4v9/7Ky/P+urvz/cXH6/6ur/P/j4/7/gID8/wAA//8AAP/yAAD/
+8hwc/f8AAP//Bgb//93d////////aWn9/6en/f92dvv/enr8/5KS/P+Zmfv/zs79/4+P/P8WFv7/
+AAD/8gEB//KTk/7/s7P7/zc3/f8AAP//0ND9/9vb/v9YWPz/wcH7/5CQ/P9kZPz/bm77/4+P/P/Y
+2P3/SUn9/wAA//IBAf/yPz/8/4yM//97e/z/AwP//4OD/P//////U1P9/wIC///l5f7/ra38/2Vl
+/P9jY/3/wMD9/5yc/f8AAP/yAAD/8gAA//8lJf7/srL8/+Hh/////////////8fH//8yMv3/JCT9
+/+fn/P+rq/3/iIj9/4SE/P/Pz/3/amr89wAA//IAAP//LS39/3R0/f+urv3/wMD9/5ub/P9gYP3/
+RET8/wAA//8uLv3/4OD//3Bw/P+Zmf3/ubn+/3Jy/PgAAP/zAAD//wAA//8AAP//AAD//wsL//8A
+AP//AAD//wAA//8AAP//AAD//3Jy/P/Ozv3/enr9/6ur/f91df34AAD/zAAA//8AAP//AAD//wAA
+//8AAP//AAD//wAA//8AAP//AAD//wAA//9LS/3//v7+/xMT/v+Ghvz/xcX8/AAA/0oAAP//AAD/
+/wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//PT38/2Bg/P8AAP//aGj8/8rK/P////8A
+AAD/RAAA/+MAAP/yAAD/8gAA//IAAP/yAAD/8gAA//IAAP/yAAD/8gAA//IAAP/yAAD/8ioq/vRd
+XfzuAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAgAAAAA==" rel="icon" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="./style.css">
+		
+		<script type="text/javascript">
+		//Cookie Theme Setter
+        // Wait for the page to load first
+		
+		function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for(var i = 0; i <ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+			if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "miss";
+		}
+		
+		function setTheme(theme){
+			if(theme == "home"){
+				//used
+				document.getElementById('themeHead1').className = "homeHead";
+				document.getElementById('themeHead2').className = "homeHead";
+				document.getElementById('themeHead3').className = "homeHead";
+				document.getElementById('themeHead4').className = "homeHead";
+				document.getElementById('themeBody').className = "homeBG";
+				document.getElementById('expand-box-header').className = "home";
+				document.getElementById('themeH').className = "homeAlt";
+				document.getElementById('themeA').className = "homeAlt";
+				document.getElementById('themeX').className = "homeAlt";
+				document.getElementById('themeY').className = "homeAlt";
+				//free
+				var t1 = document.getElementById('themeHead5');
+				var t2 = document.getElementById('themeLineup');
+				var t3 = document.getElementById('themeExtra1');
+				var t4 = document.getElementById('themeExtra2');
+				var t5 = document.getElementById('themeExtra3');
+				
+				if(t1 != null){ 
+					document.getElementById('themeHead5').className = "homeHead";
+				}
+				if(t2 != null){
+					document.getElementById('themeLineup').className = "lineupH";
+				}
+				if(t3 != null){
+					document.getElementById('themeExtra1').className = "home";
+				}
+				if(t4 != null){
+					document.getElementById('themeExtra2').className = "home";
+				}
+				if(t5 != null){
+					document.getElementById('themeExtra3').className = "home";
+				}
+				
+				
+			}
+			else{
+				//used
+				document.getElementById('themeHead1').className = "awayHead";
+				document.getElementById('themeHead2').className = "awayHead";
+				document.getElementById('themeHead3').className = "awayHead";
+				document.getElementById('themeHead4').className = "awayHead";
+				document.getElementById('themeBody').className = "awayBG";
+				document.getElementById('expand-box-header').className = "away";
+				document.getElementById('themeH').className = "awayAlt";
+				document.getElementById('themeA').className = "awayAlt";
+				document.getElementById('themeX').className = "awayAlt";
+				document.getElementById('themeY').className = "awayAlt";
+				//free
+				var t1 = document.getElementById('themeHead5');
+				var t2 = document.getElementById('themeLineup');
+				var t3 = document.getElementById('themeExtra1');
+				var t4 = document.getElementById('themeExtra2');
+				var t5 = document.getElementById('themeExtra3');
+				
+				if(t1 != null){ 
+					document.getElementById('themeHead5').className = "awayHead";
+				}
+				if(t2 != null){
+					document.getElementById('themeLineup').className = "lineupA";
+				}
+				if(t3 != null){
+					document.getElementById('themeExtra1').className = "away";
+				}
+				if(t4 != null){
+					document.getElementById('themeExtra2').className = "away";
+				}
+				if(t5 != null){
+					document.getElementById('themeExtra3').className = "away";
+				}
+				
+				
+			}
+			document.getElementById("demo").innerHTML = " ";
+		}
+		
+        window.onload = function() {
+			if(getCookie("ctheme") != "miss"){
+				setTheme(getCookie("ctheme"));
+			}
+			else{
+				setTheme("home");
+			}
+          var h = document.getElementById("themeH");
+		  var a = document.getElementById("themeA");
+          h.onclick = function() {
+			var d = new Date();
+			d.setTime(d.getTime() + (365*24*60*60*1000));
+			var expires = "expires="+ d.toUTCString();
+            document.cookie = "ctheme" + "=" + "home" + ";" + expires + ";path=/";
+			setTheme(getCookie("ctheme"));
+            return false;
+          }
+		  a.onclick = function() {
+			var d = new Date();
+			d.setTime(d.getTime() + (365*24*60*60*1000));
+			var expires = "expires="+ d.toUTCString();
+            document.cookie = "ctheme" + "=" + "away" + ";" + expires + ";path=/";
+			setTheme(getCookie("ctheme"));
+            return false;
+          }
+        }
+		
+		
+		</script>
+	

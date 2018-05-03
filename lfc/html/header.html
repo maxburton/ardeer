@@ -1,0 +1,18 @@
+</head>
+<body id="themeBody" class=<?php if($_COOKIE['ctheme']=='away') {echo "'awayBG'";} else {echo "'homeBG'";} ?>>
+
+<div id="expand-box-header" class=<?php if($_COOKIE['ctheme']=='away') {echo "'away'";} else {echo "'home'";} ?>>
+		<map name="liverbird">
+			<area shape="rect" coords="0,0,300,300" href="/">
+		</map>
+  <span style="float: left;"><img usemap="liverbird" style="padding: 10px 10px 10px 10px;" src="lfc.png"></span> 
+  <span style="float: right;">
+	<ul>
+		<li id="themeHead1" class=<?php if($_COOKIE['ctheme']=='away') {echo "'awayHead'";} else {echo "'homeHead'";} ?>><a href="#players">Players</a></li>
+		<li id="themeHead2" class=<?php if($_COOKIE['ctheme']=='away') {echo "'awayHead'";} else {echo "'homeHead'";} ?>><a href="#matches">Matches</a></li>
+		<li id="themeHead3" class=<?php if($_COOKIE['ctheme']=='away') {echo "'awayHead'";} else {echo "'homeHead'";} ?>><a href="#table">Table</a></li>
+		<li id="themeHead4" class=<?php if($_COOKIE['ctheme']=='away') {echo "'awayHead'";} else {echo "'homeHead'";} ?>><a href="#news">News</a></li>
+	</ul>
+  </span>
+</div>
+<br><br>
