@@ -33,10 +33,10 @@
         echo "<h1> Room " . $_COOKIE["hostID"] . "</h1>";}
 		$videoid = 0;
 		$videourl = "null";
+        $position = 0;
 		if(isset($_COOKIE["videoID"])) {
 			$videoid = $_COOKIE["videoID"];
 		}
-		setcookie("videoID", 25, time() + (86400 * 30), "/"); // 86400 = 1 day
         $sql="SELECT url,id FROM `room-user` WHERE roomid='$roomid' ORDER BY id ASC";
 		$found = false;
         if ($result=mysqli_query($connection,$sql)){
@@ -44,6 +44,7 @@
 				if ($row[1] > $videoid && $found == false){
 					setcookie("videoID", $row[1], time() + (86400 * 30), "/"); // 86400 = 1 day
 					$videourl = $row[0];
+                    $position = $row[1];
 					$found = true;
 				}
                 //printf ("%s \n",$row[0]);
@@ -52,7 +53,7 @@
         }
         ?>
 		
-	<table><tr><td>
+	<table class="hosttable"><tr><td>
 	<h3><?php 
 	$videotitle = getTitle($videourl);
 	if(strlen($videotitle) > 75){
@@ -66,7 +67,7 @@
 	</h3>
 	</td>
 	<td rowspan="10">
-	<table>
+	<table class="hosttable">
 	<tr><td valign="top"><h3>Coming Up:</h3>
 	<?php 
 	$sql="SELECT url,id,userid FROM `room-user` WHERE roomid='$roomid' ORDER BY id ASC";
@@ -135,7 +136,15 @@
 	if ($found == false || $videourl == "null"){
 	} else{ 
 	
-	
+	$sql = "INSERT INTO `room-position` (roomid, currentvideoid)
+    VALUES ('$roomid','$position') ON DUPLICATE KEY UPDATE currentvideoid='$position'";
+    
+    if ($connection->query($sql) === TRUE) {
+        //"Table created successfully";
+        } else {
+    echo "Error creating table: " . $connection->error;
+    }
+    $connection->close();
 	
 	
 	echo "
@@ -172,14 +181,32 @@
 	</tr>
 	<tr><td valign="top" rowspan="5">
 	<button id="homeURL" class="home-button" >Return</button>
-	<button id="skipbutton" class="skip-button" >Skip</button>
+	<button id="skipbutton" class="skip-button" ><?php if ($found == false || $videourl == "null"){echo 'Refresh';}else{echo 'Skip';}?></button>
+    <?php if ($found == false || $videourl == "null"){
+        echo '<button id="restart" class="submit-button" >From The Top</button>';
+    }?>
 	<script type="text/javascript">
+        function setCookie(cname, cvalue) {
+            var d = new Date();
+            d.setTime(d.getTime() + (24*60*60*1000)); //1 day
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+    
 		document.getElementById("homeURL").onclick = function () {
 			location.href = "./";
 		}
 		document.getElementById("skipbutton").onclick = function () {
 			location.reload();
 		}
+        <?php 
+        if ($found == false || $videourl == "null"){
+        echo '
+            document.getElementById("restart").onclick = function () {
+                setCookie("videoID",0);
+                location.reload();
+        }';}
+        ?>
     </script>
 	</td></tr>
 	</table>

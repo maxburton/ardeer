@@ -1,13 +1,18 @@
 table {
-  border-collapse: separate;
   border-spacing: 0px 0;
 }
 
-td {
+.hosttable td {
+  max-width: 100%;
   padding: 0px 200px 0px 0px;
   vertical-align: "top";
 }
 
 .red {
     color: red;
+}
+
+.border{
+    border: 1px solid black;
+    border-collapse: collapse;
 }

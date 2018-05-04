@@ -36,7 +36,7 @@
         }
     ?>
     <?php
-    if(isset($_COOKIE["lastRoomID"])) {
+    if(isset($_COOKIE["lastRoomID"]) && isset($_COOKIE["userID"])) {
         echo "<button id='rejoinRoom' class='submit-button' >Rejoin Room " . $_COOKIE["lastRoomID"] . "</button>";
     }
     ?>
@@ -97,7 +97,7 @@
         }
     };
     <?php
-    if(isset($_COOKIE["lastRoomID"])) {
+    if(isset($_COOKIE["lastRoomID"]) && isset($_COOKIE["userID"])) {
         echo'
     document.getElementById("rejoinRoom").onclick = function () {
         location.href = "./guest.php?room=" + getCookie("lastRoomID");
