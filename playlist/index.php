@@ -13,8 +13,12 @@
             echo "<p>Hi there, " . $_COOKIE['username'] . "!</p>
                 <button id='rename' class='submit-button' >Change Name</button>";
         }else{
-            echo '<p>Name: <input type="text" id="nameBox" value=""></p>
-                <p style="color:red" id="nameError"></p>';
+            echo '<p>Name: <input type="text" id="nameBox" value=""></p>';
+            if( $_GET["joined"] == "false"){
+                echo '<p style="color:red" id="nameError">Invalid name, please enter a name with 20 or fewer alphanumeric characters.</p>';
+            }else{
+                echo '<p style="color:red" id="nameError"></p>';
+            }
         }
     ?>
     <?php 
@@ -90,7 +94,7 @@
         }else{
             var input = document.getElementById('nameBox').value;
             if (input == null || input == "" || input.length > 20) {
-                document.getElementById("nameError").innerHTML = "Invalid name, please enter a name with 20 or fewer characters.";
+                document.getElementById("nameError").innerHTML = "Invalid name, please enter a name with 20 or fewer alphanumeric characters.";
             } else {
                 location.href = "./newuser.php?name=" + input;
             }

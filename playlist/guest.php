@@ -26,11 +26,17 @@
     $roomid = $_GET["room"];
     $sql="SELECT id FROM rooms WHERE id='$roomid'";
     $badid = false;
+    preg_match("/[^0-9]/i", $roomid, $falseArray);
+    if($falseArray){
+        $badid = true;
+    }
     if ($result=mysqli_query($connection,$sql)){
         if(mysqli_num_rows($result) <= 0){
             $badid = true;
-            echo "<meta http-equiv='refresh' content='0; url=./index.php?badid=true'>";
         }
+    }
+    if($badid){
+        echo "<meta http-equiv='refresh' content='0; url=./index.php?badid=true'>";
     }
     
     if(!$badid){
@@ -50,8 +56,12 @@
     echo "<h1>Room " . $_GET["room"] . "</h1>";} ?>
     <p>Youtube URL: <input type="text" id="urlBox" value=""></p>
     <?php
-    if($_GET["submitted"]){
+    if($_GET["submitted"] == "true"){
         echo "<p style='color:red'>URL submitted.</p>";
+    }else if($_GET["submitted"] == "false"){
+        echo "<p style='color:red'>False URL attempt. Pls no hack.</p>";
+    }else if($_GET["submitted"] == "error"){
+        echo "<p style='color:red'>SQL error, try again later or talk to Max.</p>";
     }
     ?>
     <p style='color:red' id="urlError"></p>
@@ -107,21 +117,23 @@
     <script>
         document.getElementById("submitURL").onclick = function(){		
             var roomid = <?php echo $_GET['room']; ?>;
+            var type = "none";
             var input = document.getElementById("urlBox").value;
 			input = input + "&";
 			var valid = false;
 			var stump = "";
 			if (input.includes("watch?v=")){
-				stump = input.match(/(?<=watch\?v=)(.*?)(?=&)/gmi);
+				type = "long";
 				valid = true;
 			}else if(input.includes("youtu.be/")){
-				stump = input.match(/(?<=youtu\.be\/)(.*?)(?=&)/gmi);
+				type = "short";
 				valid = true;
 			}
+            var encodedInput = encodeURIComponent(input);
             if (input == null || input == "" || input == "&" || valid == false) {
                 document.getElementById("urlError").innerHTML = "Invalid URL, try again";
             } else {
-                location.href = "./submit.php?url=" + stump[0] + "&room=" + roomid;
+                location.href = "./submit.php?url=" + encodedInput + "&room=" + roomid + "&type=" + type;
             }
         }
 		

@@ -11,7 +11,15 @@
 
     $database = mysqli_select_db($connection, DB_DATABASE);
     
-    $url = $_GET['url'];
+    $rawurl = $_GET['url'];
+    $url = urldecode($rawurl);
+    $type = $_GET['type'];
+    if($type == "long"){
+        preg_match("/(?<=watch\?v=)(.*?)(?=&)/i", $url, $stump);
+    }else if($type == "short"){
+        preg_match("/(?<=youtu\.be\/)(.*?)(?=&)/i", $url, $stump);
+    }
+    $url = $stump[0];
     $roomid = $_GET['room'];
     $name = "";
     $userid = "";
@@ -27,16 +35,27 @@
     }
     }
     
+    $falseURL = true;
+    preg_match("/[^A-Za-z0-9-_]/i", $url, $falseArray);
+    if(!$falseArray){
+        $falseURL = false;
+    }
+    
     $sql = "INSERT INTO `room-user` (roomid, userid, url)
     VALUES ('$roomid','$userid', '$url')";
-    
-    if ($connection->query($sql) === TRUE) {
-        //"Table created successfully";
-        } else {
-    echo "Error creating table: " . $connection->error;
+    if(type != "none" && strlen($url) < 12 && $falseURL == false){
+        if ($connection->query($sql) === TRUE) {
+            //"Table created successfully";
+            echo "<meta http-equiv='refresh' content='0; url=./guest.php?room=" . $roomid . "&submitted=true'>";
+            } else {
+        echo "Error creating table: " . $connection->error;
+        echo "<meta http-equiv='refresh' content='0; url=./guest.php?room=" . $roomid . "&submitted=error'>";
+        }
+    }else{
+        echo "<meta http-equiv='refresh' content='0; url=./guest.php?room=" . $roomid . "&submitted=false'>";
     }
     $connection->close();
     ?>
-    <meta http-equiv="refresh" content="0; url=./guest.php?room=<?php echo $roomid . "&submitted=true"; ?>">
+
     </head>
 </html>

@@ -16,21 +16,30 @@
         $name = $_GET["name"];
     }
     
+    $falseName = true;
+    preg_match("/[^A-Za-z0-9-_]/i", $name, $falseArray);
+    if(!$falseArray){
+        $falseName = false;
+    }
+    
     $sql = "INSERT INTO users (name)
     VALUES ('$name')";
-    
-    if ($connection->query($sql) === TRUE) {
-        //"Table created successfully";
-        $last_id = $connection->insert_id;
-        $cookie_name = "userID";
-        $cookie_value = $last_id;
-        setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
-        setcookie("username", $name, time() + (86400), "/"); // 86400 = 1 day
-        } else {
-    echo "Error creating table: " . $connection->error;
+    if($falseName == false){
+        if ($connection->query($sql) === TRUE) {
+            //"Table created successfully";
+            $last_id = $connection->insert_id;
+            $cookie_name = "userID";
+            $cookie_value = $last_id;
+            setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
+            setcookie("username", $name, time() + (86400), "/"); // 86400 = 1 day
+            echo '<meta http-equiv="refresh" content="0; url=./index.php?joined=true">';
+            } else {
+        echo "Error creating table: " . $connection->error;
+        }
+    }else{
+        echo '<meta http-equiv="refresh" content="0; url=./index.php?joined=false">';
     }
     $connection->close();
     ?>
-    <meta http-equiv="refresh" content="0; url=./index.php?joined=true">
     </head>
 </html>
