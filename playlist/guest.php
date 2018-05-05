@@ -1,7 +1,8 @@
 <?php include "/var/www/inc/dbinfo.inc"; ?>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="./style.css">
+    <?php include("./head.html");?>
+    
 	<!--<script src="jquery-3.3.1.min.js"></script>-->
     <?php
     $id = "0";
@@ -54,19 +55,29 @@
 <body>
     <?php if($_GET["room"]) {
     echo "<h1>Room " . $_GET["room"] . "</h1>";} ?>
-    <p>Youtube URL: <input type="text" id="urlBox" value=""></p>
+    <table class="guesttable"><tr><td>
+    <h2>Youtube URL: </h2>
+    </td></tr>
+    <tr><td>
+        <input type="text" id="urlBox" value="" width="100%">
+    </td></tr>
+    <tr><td>
     <?php
     if($_GET["submitted"] == "true"){
-        echo "<p style='color:red'>URL submitted.</p>";
+        echo "<h3 style='color:red'>URL submitted.</h3>";
     }else if($_GET["submitted"] == "false"){
-        echo "<p style='color:red'>False URL attempt. Pls no hack.</p>";
+        echo "<h3 style='color:red'>False URL attempt. Pls no hack.</h3>";
     }else if($_GET["submitted"] == "error"){
-        echo "<p style='color:red'>SQL error, try again later or talk to Max.</p>";
+        echo "<h3 style='color:red'>SQL error, try again later or talk to Max.</h3>";
     }
     ?>
-    <p style='color:red' id="urlError"></p>
+    <h3 style='color:red' id="urlError"></h3>
+    </td></tr>
+    <tr><td>
     <button id="submitURL" class="submit-button" >Submit URL</button>
-	<button id="homeURL2" class="home-button" >Return</button>
+	<button id="homeURL2" class="submit-button" >Home</button>
+    </td></tr>
+    </table>
     
     <?php
         $position = 0;
@@ -92,14 +103,14 @@
                     if ($row[2] == $id && $found == false){
                         $found = true;
                         $vidposition = $vidposition + 1;
-                        echo '<p>Your Upcoming Videos:</p>
+                        echo '<h3>Your Upcoming Videos:</h3>
                         <table class="border">
-                        <tr><th><strong>Name</strong></th><th><strong>Position</strong></th></tr>
-                        <tr><td>' . $videotitle . '</td><td>' . ($vidposition - $position) . '</td></tr>';
+                        <tr><th class="border" max-width="80%"><h3>Name</h3></th><th class="border" max-width="20%"><h3>Position</h3></th></tr>
+                        <tr><td class="border"><p>' . $videotitle . '</p></td><td class="border"><p>' . ($vidposition - $position) . '</p></td></tr>';
                     }else{
                         if ($row[2] == $id){
                             $vidposition = $vidposition + 1;
-                            echo '<tr><td>' . $videotitle . '</td><td>' . ($vidposition - $position) . '</td></tr>';
+                            echo '<tr><td class="border"><p>' . $videotitle . '</p></td><td class="border"><p>' . ($vidposition - $position) . '</p></td></tr>';
                         }else{
                             $vidposition = $vidposition + 1;
                         }

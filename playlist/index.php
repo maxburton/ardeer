@@ -1,19 +1,23 @@
 <html>
 <head>
     <title>YPPT</title>
-    <link rel="stylesheet" type="text/css" href="./style.css">
+    <?php include("./head.html");?>
 </head>
 
 <body>
     
     <h1>Youtube Party Playlist Tool</h1>
     <h2>Let many people add music or videos to a local playlist in a fair way</h2>
+    <table class="indextable">
+    <tr><td style="max-width:356px;">
     <?php
         if(isset($_COOKIE["userID"])) {
-            echo "<p>Hi there, " . $_COOKIE['username'] . "!</p>
-                <button id='rename' class='submit-button' >Change Name</button>";
+            echo "<h3>Hi there, " . $_COOKIE['username'] . "!</h3>
+            </td><td style='min-width:444px;'>
+                <button id='rename' class='submit-button'>Change Name</button>";
         }else{
-            echo '<p>Name: <input type="text" id="nameBox" value=""></p>';
+            echo '<h3> <input type="text" id="nameBox" value=""></h3>';
+            echo '</td><td style="min-width:444px;"><button id="rename" class="submit-button" >Submit Name</button>';
             if( $_GET["joined"] == "false"){
                 echo '<p style="color:red" id="nameError">Invalid name, please enter a name with 20 or fewer alphanumeric characters.</p>';
             }else{
@@ -26,17 +30,19 @@
         echo "<p style='color:red'>Room doesn't exist, try again</p>";
     }
     ?>
-    <button id="makeRoom" class="submit-button" >Make Room</button>
+    </td></tr>
+    <tr><td colspan="2">
+    <button id="makeRoom" class="submit-button" >Make New Room</button>
     <?php
     if(isset($_COOKIE["hostID"])) {
         echo "<button id='rehostRoom' class='submit-button' >Rehost Room " . $_COOKIE["hostID"] . "</button>";
     }
     ?>
+    </td></tr>
+    <tr><td colspan="2">
     <?php
         if(isset($_COOKIE["userID"])) {
             echo '<button id="joinRoom" class="submit-button" >Join Room</button>';
-        }else{
-            echo '<button id="joinRoom" class="submit-button" >Submit Name</button>';
         }
     ?>
     <?php
@@ -44,6 +50,7 @@
         echo "<button id='rejoinRoom' class='submit-button' >Rejoin Room " . $_COOKIE["lastRoomID"] . "</button>";
     }
     ?>
+    </td></tr></table>
 
 <script type="text/javascript">
     function setCookie(cname, cvalue) {
@@ -83,23 +90,22 @@
         location.href = "./host.php";
     };';
     }?>
-    document.getElementById("joinRoom").onclick = function () {
-        if (getCookie("userID") != ""){
-            var input = prompt("Please enter a room number:");
-            if (input == null || input == "" || input.length > 4) {
-                alert("Invalid room format, enter a room with 4 digits or less");
-            } else {
-                location.href = "./guest.php?room=" + input;
+    <?php
+    if(isset($_COOKIE["userID"])) {
+        echo '
+        document.getElementById("joinRoom").onclick = function () {
+            if (getCookie("userID") != ""){
+                var input = prompt("Please enter a room number:");
+                if (input == null || input == "" || input.length > 4) {
+                    alert("Invalid room format, enter a room with 4 digits or less");
+                } else {
+                    location.href = "./guest.php?room=" + input;
+                }
             }
-        }else{
-            var input = document.getElementById('nameBox').value;
-            if (input == null || input == "" || input.length > 20) {
-                document.getElementById("nameError").innerHTML = "Invalid name, please enter a name with 20 or fewer alphanumeric characters.";
-            } else {
-                location.href = "./newuser.php?name=" + input;
-            }
-        }
-    };
+        };';
+    }?>
+    
+
     <?php
     if(isset($_COOKIE["lastRoomID"]) && isset($_COOKIE["userID"])) {
         echo'
@@ -107,15 +113,20 @@
         location.href = "./guest.php?room=" + getCookie("lastRoomID");
     };';
     }?>
-    <?php
-    if(isset($_COOKIE["userID"])) {
-            echo '
     document.getElementById("rename").onclick = function () {
-        deleteCookie("username");
-        deleteCookie("userID");
-        location.reload();
-    };';
-    }?>
+        if (getCookie("userID") != ""){
+            deleteCookie("username");
+            deleteCookie("userID");
+            location.reload();
+        }else{
+            var input = document.getElementById("nameBox").value;
+            if (input == null || input == "" || input.length > 20) {
+                document.getElementById("nameError").innerHTML = "Invalid name, please enter a name with 20 or fewer alphanumeric characters.";
+            } else {
+                location.href = "./newuser.php?name=" + input;
+            }
+        }
+    };
 </script>
 </body>
 </html>

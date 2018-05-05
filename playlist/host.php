@@ -1,7 +1,7 @@
 <?php include "/var/www/inc/dbinfo.inc"; ?>
 <html>
     <head>
-	<link rel="stylesheet" type="text/css" href="./style.css">
+	<?php include("./head.html");?>
     <?php
 	
 	function getTitle($url){
@@ -66,8 +66,8 @@
 	} ?>
 	</h3>
 	</td>
-	<td rowspan="10">
-	<table class="hosttable">
+	<td class="comingup" width="30%" rowspan="10">
+	<table>
 	<tr><td valign="top"><h3>Coming Up:</h3>
 	<?php 
 	$sql="SELECT url,id,userid FROM `room-user` WHERE roomid='$roomid' ORDER BY id ASC";
@@ -118,9 +118,9 @@
 	mysqli_free_result($result2);
     }
 	if($foundComingUp > 3){
-		echo '+' . ($foundComingUp - 3) . ' more videos';
+		echo '<strong><p>+' . ($foundComingUp - 3) . ' more videos</p></strong>';
 	} else if($foundComingUp <= 0){
-		echo 'Nothing!';
+		echo '<img src="./nada.png">';
 	}
 	?>
 	</td></tr></table>
@@ -152,8 +152,8 @@
         var player;
         function onYouTubePlayerAPIReady() {
             player = new YT.Player('player', {
-              width: '640',
-              height: '390',
+              width: '804',
+              height: '490',
               videoId: '" . $videourl . "',
               events: {
                 onReady: onPlayerReady,
@@ -180,10 +180,16 @@
 	</td>
 	</tr>
 	<tr><td valign="top" rowspan="5">
-	<button id="homeURL" class="home-button" >Return</button>
-	<button id="skipbutton" class="skip-button" ><?php if ($found == false || $videourl == "null"){echo 'Refresh';}else{echo 'Skip';}?></button>
+	
     <?php if ($found == false || $videourl == "null"){
-        echo '<button id="restart" class="submit-button" >From The Top</button>';
+        echo '
+        <button id="homeURL" class="submit-button3" >Home</button>
+        <button id="skipbutton" class="submit-button3" >Refresh</button>
+        <button id="restart" class="submit-button3">From The Top</button>';
+    }else{
+        echo '
+        <button id="homeURL" class="submit-button" >Home</button>
+        <button id="skipbutton" class="submit-button" >Skip</button>';
     }?>
 	<script type="text/javascript">
         function setCookie(cname, cvalue) {

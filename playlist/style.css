@@ -2,10 +2,29 @@ table {
   border-spacing: 0px 0;
 }
 
+.indextable{
+    width:100%;
+    max-width:850px;
+    vertical-align: "top";
+}
+
+.guesttable{
+    width:100%;
+    max-width:850px;
+}
+
 .hosttable td {
-  max-width: 100%;
-  padding: 0px 200px 0px 0px;
+  padding: 0px 80px 0px 0px;
   vertical-align: "top";
+}
+
+.hosttable table,td {
+    width: 100%;
+}
+
+.comingup{
+    margin-right: 0px;
+    margin-left: auto;
 }
 
 .red {
@@ -13,6 +32,81 @@ table {
 }
 
 .border{
+    border: 2px solid black;
+    border-collapse: collapse;
+    width:100%;
+    max-width:804px;
+}
+
+.border td {
+    text-align: center;
     border: 1px solid black;
     border-collapse: collapse;
+    padding: 5px 5px 5px 5px;
+    width:100%;
+    max-width:804px;
+}
+
+.border th {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px 5px 5px 5px;
+}
+
+#urlBox
+{
+    height:55px;
+    width:100%;
+    max-width:804px;
+    font-size:20pt;
+    font-family: 'Didact Gothic';
+}
+
+#nameBox
+{
+    height:50px;
+    width:100%;
+    max-width:400px;
+    font-size:24pt;
+    font-family: 'Didact Gothic';
+}
+
+h1{
+    font-size:62pt;
+    font-family: 'Alegreya Sans SC';
+    
+}
+
+h2{
+    font-size:24pt;
+    font-family: 'Didact Gothic';
+}
+
+h3{
+    font-size:20pt;
+    font-family: 'Didact Gothic';
+}
+
+p{
+    font-size:14pt;
+    font-family: 'Didact Gothic';
+}
+
+.submit-button{
+    font-size:24pt;
+    font-family: 'Didact Gothic';
+    height: 50px;
+    min-width: 266px;
+    width: 100%;
+    max-width:400px;
+}
+
+.submit-button3{
+    font-size:24pt;
+    font-family: 'Didact Gothic';
+    height: 50px;
+    min-width: 180px;
+    width: 100%;
+    max-width: 266px;
 }

@@ -41,6 +41,16 @@
         $falseURL = false;
     }
     
+    function getTitle($url){
+        $json = file_get_contents('http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=' . $url . '&format=json'); //get JSON video details
+        $details = json_decode($json, true); //parse the JSON into an array
+        return $details['title']; //return the video title
+	}
+    
+    if(!getTitle($url)){
+        $falseURL = true;
+    }
+    
     $sql = "INSERT INTO `room-user` (roomid, userid, url)
     VALUES ('$roomid','$userid', '$url')";
     if(type != "none" && strlen($url) < 12 && $falseURL == false){
