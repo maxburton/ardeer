@@ -22,8 +22,8 @@
         $falseName = false;
     }
     
-    $sql = "INSERT INTO users (name)
-    VALUES ('$name')";
+    $sql = "INSERT INTO users (name, date)
+    VALUES ('$name', NOW())";
     if($falseName == false){
         if ($connection->query($sql) === TRUE) {
             //"Table created successfully";

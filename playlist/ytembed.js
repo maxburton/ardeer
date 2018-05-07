@@ -310,7 +310,7 @@ var ytEmbed = {
                     li.appendChild(a);
                 } else {
                     //this.cfg.layout = full
-                    li.innerHTML = '<table class="results" cellspacing="0" cellpadding="0" border="0"><tr><td valign="top" rowspan="2"></td><td width="90%" valign="top"><h3>' + entry.snippet.title + '</h3><p><span>' + this.formatDescription(entry.snippet.description) + '</span></p></td><td width="10%" valign="top" class="meta"><div>' + (entry.contentDetails ? 'Duration: ' + ytEmbed.formatDuration(entry.contentDetails.duration) + '<br>' : '') + (entry.statistics ? 'Views: ' + entry.statistics.viewCount + '<br>' : '') + '<p>From: <a href="http://www.youtube.com/profile?user=' + entry.snippet.channelTitle + '"></p>' + entry.snippet.channelTitle + '</a></div></td></tr></table>';
+                    li.innerHTML = '<table class="results" cellspacing="0" cellpadding="0" border="0"><tr><td valign="top" rowspan="2"></td><td width="90%" valign="top"><h3>' + this.formatTitle(entry.snippet.title) + '</h3><p><span>' + this.formatDescription(entry.snippet.description) + '</span></p></td><td width="10%" valign="top" class="meta"><div>' + (entry.contentDetails ? 'Duration: ' + ytEmbed.formatDuration(entry.contentDetails.duration) + '<br>' : '') + (entry.statistics ? 'Views: ' + entry.statistics.viewCount + '<br>' : '') + '<p>From: <a href="http://www.youtube.com/profile?user=' + entry.snippet.channelTitle + '"></p>' + entry.snippet.channelTitle + '</a></div></td></tr></table>';
                     li.firstChild.firstChild.firstChild.firstChild.appendChild(a);
                 }
                 ul.appendChild(li);
@@ -432,13 +432,25 @@ var ytEmbed = {
      */
     formatDescription: function(ds) {
         if (ds) {
-            if (ds.length > 125) {
-                return ds.substr(0, 122) + '...';
+            if (ds.length > 80) {
+                return ds.substr(0, 77) + '...';
             } else {
                 return ds;
             }
         } else {
             return "No description available.";
+        }
+    },
+	
+	formatTitle: function(ds) {
+        if (ds) {
+            if (ds.length > 60) {
+                return ds.substr(0, 57) + '...';
+            } else {
+                return ds;
+            }
+        } else {
+            return "No title available.";
         }
     },
 

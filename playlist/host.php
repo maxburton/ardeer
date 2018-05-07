@@ -30,7 +30,7 @@
     
     <body>
         <?php if(isset($_COOKIE["hostID"])) {
-        echo "<h1> Room " . $_COOKIE["hostID"] . " - " . $_COOKIE["username"] . "'s Room</h1>";}
+        echo "<h1> Room " . $_COOKIE["hostID"] . "</h1>";}
 		$videoid = 0;
 		$videourl = "null";
         $position = 0;

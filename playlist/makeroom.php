@@ -32,14 +32,14 @@
         }
     }
     $roomExists = true;
-    $id = rand(1,9999);
+    $id = rand(1,99999);
     while($roomExists){
-        $id = rand(1,9999);
+        $id = rand(1,99999);
         $roomExists = checkRoom($id);
     }
     
-    $sql = "INSERT INTO rooms (id)
-    VALUES (" . $id . ")";
+    $sql = "INSERT INTO rooms (id, date)
+    VALUES (" . $id . ", NOW())";
  
     if ($connection->query($sql) === TRUE) {
         //"Table created successfully";

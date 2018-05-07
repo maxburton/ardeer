@@ -120,8 +120,8 @@
         document.getElementById("joinRoom").onclick = function () {
             if (getCookie("userID") != ""){
                 var input = prompt("Please enter a room number:");
-                if (input == null || input == "" || input.length > 4) {
-                    alert("Invalid room format, enter a room with 4 digits or less");
+                if (input == null || input == "" || input.length > 5) {
+                    alert("Invalid room format, enter a room with 5 digits or less");
                 } else {
                     location.href = "./guest.php?room=" + input;
                 }
