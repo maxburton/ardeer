@@ -24,13 +24,13 @@
     ?>
     
     <title><?php if(isset($_COOKIE["hostID"])) {
-        echo "Room " . $_COOKIE["hostID"];} ?>
+        echo "Room " . $_COOKIE["hostID"] . " - " . $_COOKIE["username"] . "'s Room";} ?>
     </title>
     </head>
     
     <body>
         <?php if(isset($_COOKIE["hostID"])) {
-        echo "<h1> Room " . $_COOKIE["hostID"] . "</h1>";}
+        echo "<h1> Room " . $_COOKIE["hostID"] . " - " . $_COOKIE["username"] . "'s Room</h1>";}
 		$videoid = 0;
 		$videourl = "null";
         $position = 0;
@@ -53,7 +53,7 @@
         }
         ?>
 		
-	<table class="hosttable"><tr><td>
+	<table class="hosttable"><tr><td width="100%">
 	<h3><?php 
 	$videotitle = getTitle($videourl);
 	if(strlen($videotitle) > 75){
@@ -66,7 +66,7 @@
 	} ?>
 	</h3>
 	</td>
-	<td class="comingup" width="30%" rowspan="10">
+	<td class="comingup" rowspan="10">
 	<table>
 	<tr><td valign="top"><h3>Coming Up:</h3>
 	<?php 
@@ -126,7 +126,9 @@
 	</td></tr></table>
 	</td>
 	</tr>
-	<tr><td valign="top" style="padding-bottom:20px">
+	<tr><td valign="top">
+	<table width="100%">
+	<tr><td>
 	<div id="player"></div>
     <script src="http://www.youtube.com/player_api"></script>
     <script>
@@ -178,19 +180,30 @@
 	?>
     </script>
 	</td>
+	<td width="100%">
+		<table class="hostButtons"><tr><td>
+			<?php if ($found == false || $videourl == "null"){
+				echo '
+				<button id="homeURL" class="submit-button" >Home</button>
+				</td></tr><tr><td>
+				<button id="skipbutton" class="submit-button" >Refresh</button>
+				</td></tr><tr><td>
+				<button id="restart" class="submit-button">From The Top</button>
+				</td>';
+			}else{
+				echo '
+				<button id="homeURL" class="submit-button" >Home</button>
+				</td></tr><tr><td>
+				<button id="skipbutton" class="submit-button" >Skip</button>
+				</td>';
+			}?>
+		</tr></table>
+	</td>
 	</tr>
-	<tr><td valign="top" rowspan="5">
-	
-    <?php if ($found == false || $videourl == "null"){
-        echo '
-        <button id="homeURL" class="submit-button3" >Home</button>
-        <button id="skipbutton" class="submit-button3" >Refresh</button>
-        <button id="restart" class="submit-button3">From The Top</button>';
-    }else{
-        echo '
-        <button id="homeURL" class="submit-button" >Home</button>
-        <button id="skipbutton" class="submit-button" >Skip</button>';
-    }?>
+	</table>
+	</td>
+	</tr>
+	</table>
 	<script type="text/javascript">
         function setCookie(cname, cvalue) {
             var d = new Date();

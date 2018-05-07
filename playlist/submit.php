@@ -13,13 +13,6 @@
     
     $rawurl = $_GET['url'];
     $url = urldecode($rawurl);
-    $type = $_GET['type'];
-    if($type == "long"){
-        preg_match("/(?<=watch\?v=)(.*?)(?=&)/i", $url, $stump);
-    }else if($type == "short"){
-        preg_match("/(?<=youtu\.be\/)(.*?)(?=&)/i", $url, $stump);
-    }
-    $url = $stump[0];
     $roomid = $_GET['room'];
     $name = "";
     $userid = "";
@@ -35,25 +28,15 @@
     }
     }
     
-    $falseURL = true;
-    preg_match("/[^A-Za-z0-9-_]/i", $url, $falseArray);
-    if(!$falseArray){
-        $falseURL = false;
-    }
-    
     function getTitle($url){
         $json = file_get_contents('http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=' . $url . '&format=json'); //get JSON video details
         $details = json_decode($json, true); //parse the JSON into an array
         return $details['title']; //return the video title
 	}
     
-    if(!getTitle($url)){
-        $falseURL = true;
-    }
-    
     $sql = "INSERT INTO `room-user` (roomid, userid, url)
     VALUES ('$roomid','$userid', '$url')";
-    if(type != "none" && strlen($url) < 12 && $falseURL == false){
+    if(strlen($url) < 12){
         if ($connection->query($sql) === TRUE) {
             //"Table created successfully";
             echo "<meta http-equiv='refresh' content='0; url=./guest.php?room=" . $roomid . "&submitted=true'>";

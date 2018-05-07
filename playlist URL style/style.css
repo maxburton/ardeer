@@ -1,6 +1,5 @@
-table, td {
+table {
   border-spacing: 0px 0;
-  border: 2px solid black;
 }
 
 ul, li {
@@ -9,24 +8,18 @@ ul, li {
 
 .indextable{
     width:100%;
+    max-width:850px;
     vertical-align: top;
-}
-
-.indextable td{
-    height: 100px;
 }
 
 .guesttable{
     width:100%;
+    max-width:850px;
 }
 
 .hosttable td {
-	padding-left:10px;
-	padding-right:10px;
-	margin-right: 10px;
-	margin-left: 10px;
-	vertical-align: top;
-	height:100%;
+  padding: 0px 80px 0px 0px;
+  vertical-align: top;
 }
 
 .hosttable table {
@@ -34,7 +27,6 @@ ul, li {
 }
 
 .comingup{
-	width: 100%;
     margin-right: 0px;
     margin-left: auto;
 }
@@ -47,7 +39,7 @@ ul, li {
     border: 2px solid black;
     border-collapse: collapse;
     width:100%;
-
+    max-width:804px;
 }
 
 .border td {
@@ -56,7 +48,7 @@ ul, li {
     border-collapse: collapse;
     padding: 5px 5px 5px 5px;
     width:100%;
-
+    max-width:804px;
 }
 
 .border th {
@@ -70,32 +62,33 @@ ul, li {
 {
     height:55px;
     width:100%;
+    max-width:804px;
     font-size:20pt;
     font-family: 'Didact Gothic';
 }
 
 #nameBox
 {
-    height:55px;
+    height:50px;
     width:100%;
-    font-size:20pt;
+    max-width:400px;
+    font-size:24pt;
     font-family: 'Didact Gothic';
 }
 
 h1{
-    font-size:72pt;
+    font-size:62pt;
     font-family: 'Alegreya Sans SC';
-    text-align: center;
+    
 }
 
 h2{
-	text-align: center;
-    font-size:32pt;
-    font-family: 'Alegreya Sans SC';
+    font-size:24pt;
+    font-family: 'Didact Gothic';
 }
 
 h3{
-    font-size:24pt;
+    font-size:20pt;
     font-family: 'Didact Gothic';
 }
 
@@ -104,16 +97,8 @@ p{
     font-family: 'Didact Gothic';
 }
 
-.results td{
+ .results td{
 	padding: 5px 5px 5px 5px;
-}
-
-.results table{
-	width: 100%;
-}
-
-.hostButtons td{
-	height: 160px;
 }
 
 .load{
@@ -121,8 +106,19 @@ p{
 }
 
 .submit-button{
-    font-size:28pt;
+    font-size:24pt;
     font-family: 'Didact Gothic';
-    height: 80px;
+    height: 50px;
+    min-width: 266px;
     width: 100%;
+    max-width:400px;
+}
+
+.submit-button3{
+    font-size:24pt;
+    font-family: 'Didact Gothic';
+    height: 50px;
+    min-width: 180px;
+    width: 100%;
+    max-width: 266px;
 }

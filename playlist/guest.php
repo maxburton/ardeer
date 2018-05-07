@@ -55,16 +55,16 @@
 <body>
     <?php if($_GET["room"]) {
     echo "<h1>Room " . $_GET["room"] . "</h1>";} ?>
-    <table class="guesttable"><tr><td>
-    <h2>Youtube URL: </h2>
+    <table class="guesttable"><tr><td colspan="2">
+    <h2>Search a YouTube video: </h2>
     </td></tr>
-    <tr><td>
+    <tr><td colspan="2">
         <input type="text" id="urlBox" value="" width="100%">
     </td></tr>
     <tr><td>
     <?php
     if($_GET["submitted"] == "true"){
-        echo "<h3 style='color:red'>URL submitted.</h3>";
+        echo "<h3 style='color:red'>Video submitted.</h3>";
     }else if($_GET["submitted"] == "false"){
         echo "<h3 style='color:red'>False URL attempt. Pls no hack.</h3>";
     }else if($_GET["submitted"] == "error"){
@@ -74,8 +74,12 @@
     <h3 style='color:red' id="urlError"></h3>
     </td></tr>
     <tr><td>
-    <button id="submitURL" class="submit-button" >Submit URL</button>
+	<div>
+    <button id="submitURL" class="submit-button" >Search</button></td><td>
+	</div>
+	<div class="right">
 	<button id="homeURL2" class="submit-button" >Home</button>
+	</div>
     </td></tr>
     </table>
     
@@ -105,7 +109,7 @@
                         $vidposition = $vidposition + 1;
                         echo '<h3>Your Upcoming Videos:</h3>
                         <table class="border">
-                        <tr><th class="border" max-width="80%"><h3>Name</h3></th><th class="border" max-width="20%"><h3>Position</h3></th></tr>
+                        <tr><th class="border"><h3>Name</h3></th><th class="border"><h3>Position</h3></th></tr>
                         <tr><td class="border"><p>' . $videotitle . '</p></td><td class="border"><p>' . ($vidposition - $position) . '</p></td></tr>';
                     }else{
                         if ($row[2] == $id){
@@ -125,28 +129,34 @@
         mysqli_free_result($result);
         }
     ?>
-    <script>
-        document.getElementById("submitURL").onclick = function(){		
+	<?php if ($_GET['search']){
+		echo "<h3>Search Results:</h3>";
+	}
+	?>
+	<script src="./ytembed.js"></script>
+	<div id="ytThumbs"></div>
+
+	<script>
+		function GetId(input){
             var roomid = <?php echo $_GET['room']; ?>;
-            var type = "none";
-            var input = document.getElementById("urlBox").value;
-			input = input + "&";
-			var valid = false;
-			var stump = "";
-			if (input.includes("watch?v=")){
-				type = "long";
-				valid = true;
-			}else if(input.includes("youtu.be/")){
-				type = "short";
-				valid = true;
-			}
             var encodedInput = encodeURIComponent(input);
-            if (input == null || input == "" || input == "&" || valid == false) {
+            if (input == null || input == "") {
                 document.getElementById("urlError").innerHTML = "Invalid URL, try again";
             } else {
-                location.href = "./submit.php?url=" + encodedInput + "&room=" + roomid + "&type=" + type;
+                location.href = "./submit.php?url=" + encodedInput + "&room=" + roomid;
             }
         }
+		<?php if ($_GET['search']){
+			echo "
+			ytEmbed.init({'block':'ytThumbs','key':'AIzaSyCG_tMCePfKeih85nhUXkNhB6sP0svfhsw','q':'" . $_GET['search'] . "','type':'search','results':5,'meta':false,'player':'link','layout':'full'});";
+		}
+		?>
+	</script>
+    <script>
+        document.getElementById("submitURL").onclick = function(){
+			var input = document.getElementById("urlBox").value;
+			location.href = "./guest.php?search=" + input + "&room=" + <?php echo $_GET['room']; ?>;
+		}
 		
 		document.getElementById("homeURL2").onclick = function(){		
 			location.href = "./";

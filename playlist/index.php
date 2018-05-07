@@ -8,20 +8,26 @@
     
     <h1>Youtube Party Playlist Tool</h1>
     <h2>Let many people add music or videos to a local playlist in a fair way</h2>
+	<?php
+        if(isset($_COOKIE["userID"])) {
+            echo "<h3>Hi there, " . $_COOKIE['username'] . "!</h3>";
+		}else{
+			echo "<h3>Enter Your Name:</h3>";
+		}
+	?>
     <table class="indextable">
-    <tr><td style="max-width:356px;">
+    <tr><td>
     <?php
         if(isset($_COOKIE["userID"])) {
-            echo "<h3>Hi there, " . $_COOKIE['username'] . "!</h3>
-            </td><td style='min-width:444px;'>
+			echo "
                 <button id='rename' class='submit-button'>Change Name</button>";
         }else{
             echo '<h3> <input type="text" id="nameBox" value=""></h3>';
-            echo '</td><td style="min-width:444px;"><button id="rename" class="submit-button" >Submit Name</button>';
+            echo '<button id="rename" class="submit-button" >Submit Name</button>';
             if( $_GET["joined"] == "false"){
-                echo '<p style="color:red" id="nameError">Invalid name, please enter a name with 20 or fewer alphanumeric characters.</p>';
+                echo '<h3 style="color:red" id="nameError">Invalid name, please enter a name with 20 or fewer alphanumeric characters.</h3>';
             }else{
-                echo '<p style="color:red" id="nameError"></p>';
+                echo '<h3 style="color:red" id="nameError"></h3>';
             }
         }
     ?>
@@ -30,21 +36,35 @@
         echo "<p style='color:red'>Room doesn't exist, try again</p>";
     }
     ?>
-    </td></tr>
-    <tr><td colspan="2">
-    <button id="makeRoom" class="submit-button" >Make New Room</button>
+	
+	<?php
+        if(isset($_COOKIE["userID"])) {
+            echo '
+			</td></tr>
+			<tr><td>
+			<button id="makeRoom" class="submit-button" >Make New Room</button>';
+		}
+    ?>
+	
     <?php
     if(isset($_COOKIE["hostID"])) {
-        echo "<button id='rehostRoom' class='submit-button' >Rehost Room " . $_COOKIE["hostID"] . "</button>";
+        echo "
+		</td></tr>
+		<tr><td>
+		<button id='rehostRoom' class='submit-button' >Rehost Room " . $_COOKIE["hostID"] . "</button>";
     }
     ?>
-    </td></tr>
-    <tr><td colspan="2">
+    
     <?php
         if(isset($_COOKIE["userID"])) {
-            echo '<button id="joinRoom" class="submit-button" >Join Room</button>';
+            echo '
+			</td></tr>
+			<tr><td>
+			<button id="joinRoom" class="submit-button" >Join Room</button>';
         }
     ?>
+	</td></tr>
+    <tr><td>
     <?php
     if(isset($_COOKIE["lastRoomID"]) && isset($_COOKIE["userID"])) {
         echo "<button id='rejoinRoom' class='submit-button' >Rejoin Room " . $_COOKIE["lastRoomID"] . "</button>";
@@ -79,10 +99,14 @@
     function deleteCookie(cname) {
         document.cookie = cname +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
-    
+	<?php
+    if(isset($_COOKIE["userID"])) {
+        echo '
     document.getElementById("makeRoom").onclick = function () {
         location.href = "./makeroom.php";
-    };
+    };';
+	}
+	?>
     <?php
     if(isset($_COOKIE["hostID"])) {
         echo'
