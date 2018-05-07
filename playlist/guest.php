@@ -69,17 +69,15 @@
         echo "<h3 style='color:red'>False URL attempt. Pls no hack.</h3>";
     }else if($_GET["submitted"] == "error"){
         echo "<h3 style='color:red'>SQL error, try again later or talk to Max.</h3>";
-    }
+    }else if($_GET["submitted"] == "duplicate"){
+        echo "<h3 style='color:red'>This video is already in the playlist.</h3>";
+	}
     ?>
     <h3 style='color:red' id="urlError"></h3>
     </td></tr>
     <tr><td>
-	<div>
     <button id="submitURL" class="submit-button" >Search</button></td><td>
-	</div>
-	<div class="right">
 	<button id="homeURL2" class="submit-button" >Home</button>
-	</div>
     </td></tr>
     </table>
     

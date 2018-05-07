@@ -27,6 +27,17 @@
         }
     }
     }
+	
+	//Check Duplicate
+	$duplicate = false;
+	$sql = "SELECT url FROM `room-user` WHERE roomid='$roomid'";
+	if ($result=mysqli_query($connection,$sql)){
+        while ($row=mysqli_fetch_row($result)){
+			if ($url == $row[0]){
+				$duplicate = true;
+			}
+		}
+	}
     
     function getTitle($url){
         $json = file_get_contents('http://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=' . $url . '&format=json'); //get JSON video details
@@ -37,7 +48,10 @@
     $sql = "INSERT INTO `room-user` (roomid, userid, url)
     VALUES ('$roomid','$userid', '$url')";
     if(strlen($url) < 12){
-        if ($connection->query($sql) === TRUE) {
+		if($duplicate){
+			echo "<meta http-equiv='refresh' content='0; url=./guest.php?room=" . $roomid . "&submitted=duplicate'>";
+		}
+        else if ($connection->query($sql) === TRUE) {
             //"Table created successfully";
             echo "<meta http-equiv='refresh' content='0; url=./guest.php?room=" . $roomid . "&submitted=true'>";
             } else {

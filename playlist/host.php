@@ -120,7 +120,9 @@
 	if($foundComingUp > 3){
 		echo '<strong><p>+' . ($foundComingUp - 3) . ' more videos</p></strong>';
 	} else if($foundComingUp <= 0){
-		echo '<img src="./nada.png">';
+		echo '
+		<strong><p>UK Top 40 [You\'ve run out of songs!]</p></strong>
+		<img src="./nada.png">';
 	}
 	?>
 	</td></tr></table>
