@@ -45,6 +45,12 @@
         $cookie_value = $roomid;
         setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
     }
+	
+	$sql = "INSERT INTO `room-activeusers` (roomid, userid)
+    VALUES ('$roomid','$id')";
+    if ($connection->query($sql) === TRUE) {
+		//"Table created successfully";
+    }
     ?>
     
     <title><?php if($_GET["room"]) {
@@ -55,10 +61,10 @@
 <body>
     <?php if($_GET["room"]) {
     echo "<h1>Room " . $_GET["room"] . "</h1>";} ?>
-    <table class="guesttable"><tr><td colspan="2">
-    <h2>Search a YouTube video: </h2>
+    <table class="guesttable"><tr><td colspan="3">
+    <h2>Search for a YouTube video: </h2>
     </td></tr>
-    <tr><td colspan="2">
+    <tr><td colspan="3">
         <input type="text" id="urlBox" value="" width="100%">
     </td></tr>
     <tr><td>
@@ -77,10 +83,14 @@
     </td></tr>
     <tr><td>
     <button id="submitURL" class="submit-button" >Search</button></td><td>
-	<button id="homeURL2" class="submit-button" >Home</button>
+	<button id="homeURL2" class="submit-button" >Home</button></td><td>
+	<button id="voteskip" class="submit-button" >Vote Skip</button>
     </td></tr>
     </table>
-    
+    <?php if($_GET['voteskip']){
+		echo "<h3 class='red'>Voteskip submitted</h3>";
+	}
+	?>
     <?php
         $position = 0;
         $vidposition = 0;
@@ -157,8 +167,13 @@
 		}
 		
 		document.getElementById("homeURL2").onclick = function(){		
-			location.href = "./";
+			location.href = "./deleteactive.php?room=" + <?php echo $_GET['room']; ?>;
 		}
+		
+		document.getElementById("voteskip").onclick = function(){		
+			location.href = "./voteskip.php?room=" + <?php echo $_GET['room']; ?>;
+		}
+		
     </script>
 </body>
 </html>

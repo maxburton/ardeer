@@ -1,0 +1,3 @@
+Voteskip: Ajax to check no. of active users, check no. of voteskips, and compare (Possible alg: Math.floor(active/2)+1 )
+Fix cron
+Set up default playlist when vids run out

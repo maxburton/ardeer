@@ -30,10 +30,17 @@
 	
 	//Check Duplicate
 	$duplicate = false;
-	$sql = "SELECT url FROM `room-user` WHERE roomid='$roomid'";
+	$currentposition = 0;
+	$sql = "SELECT currentvideoid FROM `room-position` WHERE roomid='$roomid'";
 	if ($result=mysqli_query($connection,$sql)){
         while ($row=mysqli_fetch_row($result)){
-			if ($url == $row[0]){
+			$currentposition = $row[0];
+		}
+	}
+	$sql = "SELECT url, id FROM `room-user` WHERE roomid='$roomid'";
+	if ($result=mysqli_query($connection,$sql)){
+        while ($row2=mysqli_fetch_row($result)){
+			if ($url == $row2[0] && $row2[1] >= $currentposition){
 				$duplicate = true;
 			}
 		}

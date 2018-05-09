@@ -52,9 +52,8 @@
         mysqli_free_result($result);
         }
         ?>
-		
-	<table class="hosttable"><tr><td width="100%">
-	<h3><?php 
+	<h3>
+	<?php 
 	$videotitle = getTitle($videourl);
 	if(strlen($videotitle) > 75){
 		$videotitleComingUp = substr($videotitleComingUp,0,75) . "...";
@@ -65,6 +64,7 @@
 		echo $videotitle;
 	} ?>
 	</h3>
+	<table class="hosttable"><tr><td width="100%">
 	</td>
 	<td class="comingup" rowspan="10">
 	<table>
@@ -101,14 +101,14 @@
 					$videotitleComingUp = substr($videotitleComingUp,0,55) . "...";
 				}
 				echo '
-					<strong><p>' . $videotitleComingUp . '</p></strong>
-					<img src="https://img.youtube.com/vi/' . $videourlComingUp . '/mqdefault.jpg">
+					<strong><p id="title' . $foundComingUp . '">' . $videotitleComingUp . '</p></strong>
+					<img id="thumb' . $foundComingUp . '" src="https://img.youtube.com/vi/' . $videourlComingUp . '/mqdefault.jpg">
 					</td>
 					</tr>
 					<tr>
 					<td>
 					
-					<p>submitted by ' . $username . '</p>';
+					<p id="submitted' . $foundComingUp . '">submitted by ' . $username . '</p>';
 				}
 				}
 			}
@@ -118,14 +118,91 @@
 	mysqli_free_result($result2);
     }
 	if($foundComingUp > 3){
-		echo '<strong><p>+' . ($foundComingUp - 3) . ' more videos</p></strong>';
+		echo '<strong><p id="morevideos">+' . ($foundComingUp - 3) . ' more videos</p></strong>';
 	} else if($foundComingUp <= 0){
 		echo '
-		<strong><p>UK Top 40 [You\'ve run out of songs!]</p></strong>
-		<img src="./nada.png">';
+		<strong><p id="title1">UK Top 40 [You\'ve run out of songs!]</p></strong>
+		<img id="thumb1" src="./nada.png">
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<p id="submitted1"></p>
+		<strong><p id="title2"></p></strong>
+		<img id="thumb2">
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<p id="submitted2"></p>
+		<strong><p id="title3"></p></strong>
+		<img id="thumb3">
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<p id="submitted3"></p>
+		<strong><p id="morevideos"></p></strong>';
+	}else if($foundComingUp == 1){
+		echo '
+		<strong><p id="title2"></p></strong>
+		<img id="thumb2">
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<p id="submitted2"></p>
+		<strong><p id="title3"></p></strong>
+		<img id="thumb3">
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<p id="submitted3"></p>
+		<strong><p id="morevideos"></p></strong>';
+	}else if($foundComingUp == 2){
+		echo '
+		<strong><p id="title3"></p></strong>
+		<img id="thumb3">
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<p id="submitted3"></p>
+		<strong><p id="morevideos"></p></strong>';
 	}
 	?>
 	</td></tr></table>
+	<script>
+	function update(data){
+		data = JSON.parse(data);
+		
+		var numvideos = data.length / 3;
+		if(numvideos > 0 && numvideos <= 3){
+			for (var i = 0; i < numvideos; i++) { 
+				document.getElementById("title" + (i+1)).innerHTML = data[3*i];
+				document.getElementById("thumb" + (i+1)).setAttribute("src", "https://img.youtube.com/vi/" + data[(3*i)+1] + "/mqdefault.jpg"); 
+				document.getElementById("submitted" + (i+1)).innerHTML = "submitted by " + data[(3*i)+2];
+			}
+		}
+		if(numvideos > 3){
+			document.getElementById("morevideos").innerHTML = "+" + (numvideos - 3) + " more videos";
+		}
+	}
+	var dataString = new Array();
+	var ajax_call = function(){
+		$.ajax({
+			type: "POST",
+			url: "/playlist/comingup.php",
+			datatype:"json",
+			success: function(data){
+				update(data);
+			}
+		});
+	}
+	var interval = 1000; //1 second
+	setInterval(ajax_call, interval);
+	</script>
 	</td>
 	</tr>
 	<tr><td valign="top">
