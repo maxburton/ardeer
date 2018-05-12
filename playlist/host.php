@@ -21,6 +21,11 @@
     if (mysqli_connect_errno()) echo "Failed to connect to MySQL: " . mysqli_connect_error();
 
     $database = mysqli_select_db($connection, DB_DATABASE);
+	
+	$sql = "DELETE FROM `voteskip` WHERE roomid='$roomid'";
+    if ($connection->query($sql) === TRUE) {
+		//"Table created successfully";
+	}
     ?>
     
     <title><?php if(isset($_COOKIE["hostID"])) {
@@ -174,7 +179,7 @@
 	?>
 	</td></tr></table>
 	<script>
-	function update(data){
+	function update_comingup(data){
 		data = JSON.parse(data);
 		
 		var numvideos = data.length / 3;
@@ -189,19 +194,47 @@
 			document.getElementById("morevideos").innerHTML = "+" + (numvideos - 3) + " more videos";
 		}
 	}
-	var dataString = new Array();
-	var ajax_call = function(){
+	var ajax_call_comingup = function(){
 		$.ajax({
 			type: "POST",
 			url: "/playlist/comingup.php",
 			datatype:"json",
 			success: function(data){
-				update(data);
+				update_comingup(data);
 			}
 		});
 	}
-	var interval = 1000; //1 second
-	setInterval(ajax_call, interval);
+	var interval_comingup = 1000; //1 second
+	setInterval(ajax_call_comingup, interval_comingup);
+	
+	function update_voteskip(data){
+		data = JSON.parse(data);
+		
+		var voteskips = data[0];
+		var users = data[1];
+		var skips_needed = Math.floor(users/2) + 1;
+		
+		if(voteskips >= skips_needed){
+			location.reload();
+		}
+		
+		if(voteskips > 0){
+			document.getElementById("voteskip_counter").innerHTML = voteskips + " user(s) want to skip this video (" + (skips_needed - voteskips) + " more needed)";
+		}
+	}
+	
+	var ajax_call_voteskip = function(){
+		$.ajax({
+			type: "POST",
+			url: "/playlist/getvoteskip.php",
+			datatype:"json",
+			success: function(data){
+				update_voteskip(data);
+			}
+		});
+	}
+	interval_voteskip = 2000; //2 seconds
+	setInterval(ajax_call_voteskip, interval_voteskip);
 	</script>
 	</td>
 	</tr>
@@ -274,6 +307,8 @@
 				<button id="homeURL" class="submit-button" >Home</button>
 				</td></tr><tr><td>
 				<button id="skipbutton" class="submit-button" >Skip</button>
+				</td></tr><tr><td>
+				<strong><p class="red" id="voteskip_counter"></p></strong>
 				</td>';
 			}?>
 		</tr></table>

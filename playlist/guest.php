@@ -44,13 +44,14 @@
         $cookie_name = "lastRoomID";
         $cookie_value = $roomid;
         setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
+		
+		$sql = "INSERT INTO `room-activeusers` (roomid, userid)
+		VALUES ('$roomid','$id')";
+		if ($connection->query($sql) === TRUE) {
+			//"Table created successfully";
+		}
     }
 	
-	$sql = "INSERT INTO `room-activeusers` (roomid, userid)
-    VALUES ('$roomid','$id')";
-    if ($connection->query($sql) === TRUE) {
-		//"Table created successfully";
-    }
     ?>
     
     <title><?php if($_GET["room"]) {

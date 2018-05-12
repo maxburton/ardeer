@@ -16,37 +16,24 @@
 	
 	$roomid = $_COOKIE["hostID"];
 	
-	$currentposition = 0;
-	$sql = "SELECT currentvideoid FROM `room-position` WHERE roomid='$roomid'";
+	$count = 0;
+	$sql = "SELECT COUNT(*) FROM `voteskip` WHERE roomid='$roomid'";
 	if ($result=mysqli_query($connection,$sql)){
         while ($row=mysqli_fetch_row($result)){
-			$currentposition = $row[0];
+			$count = $row[0];
 		}
 	}
-	$sql="SELECT url,id,userid FROM `room-user` WHERE roomid='$roomid' ORDER BY id ASC";
-    if ($result=mysqli_query($connection,$sql)){
+	
+	$active = 0;
+	$sql = "SELECT COUNT(*) FROM `room-activeusers` WHERE roomid='$roomid'";
+	if ($result=mysqli_query($connection,$sql)){
         while ($row=mysqli_fetch_row($result)){
-			if ($row[1] > $currentposition){
-				$videourlComingUp = "null";
-				$videotitleComingUp = "null";
-				$userid = $row[2];
-				$username = "anonymous";
-				$sql2="SELECT name FROM `users` WHERE id='$userid'";
-				if ($result2=mysqli_query($connection,$sql2)){
-					while ($row2=mysqli_fetch_row($result2)){
-						$username = $row2[0];
-					}
-				}
-				$videourlComingUp = $row[0];
-				$videotitleComingUp = getTitle($videourlComingUp);
-				if(strlen($videotitleComingUp) > 55){
-					$videotitleComingUp = substr($videotitleComingUp,0,55) . "...";
-				}
-				
-				array_push($out,$videotitleComingUp,$videourlComingUp,$username);
-			}
+			$active = $row[0];
 		}
 	}
+	
+	array_push($out,$count,$active);
+	
     $connection->close();
 	echo json_encode($out);
     ?>

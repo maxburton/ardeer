@@ -15,12 +15,8 @@
     if(isset($_COOKIE["userID"])) {
         $userid = $_COOKIE["userID"];
     }
-	$roomid = 0;
-	if($_GET["room"]){
-        $roomid = $_GET["room"];
-    }
     
-    $sql = "DELETE FROM `room-activeusers` WHERE roomid='$roomid' AND userid='$userid'";
+    $sql = "DELETE FROM `room-activeusers` WHERE userid='$userid'";
     if ($connection->query($sql) === TRUE) {
 		//"Table created successfully";
 		echo '<meta http-equiv="refresh" content="0; url=./">';

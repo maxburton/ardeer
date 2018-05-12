@@ -141,7 +141,7 @@
         if (getCookie("userID") != ""){
             deleteCookie("username");
             deleteCookie("userID");
-            location.reload();
+            location.href = "./deleteactive.php";
         }else{
             var input = document.getElementById("nameBox").value;
             if (input == null || input == "" || input.length > 20) {

@@ -81,6 +81,11 @@ ul, li {
     font-family: 'Didact Gothic';
 }
 
+#voteskip_counter{
+	width:100%;
+	font-size: 20pt;
+}
+
 h1{
     font-size:72pt;
     font-family: 'Arvo';
@@ -115,6 +120,7 @@ p{
 
 .hostButtons td{
 	height: 160px;
+	text-align:center;
 }
 
 .load{
