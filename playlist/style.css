@@ -81,6 +81,13 @@ ul, li {
     font-family: 'Didact Gothic';
 }
 
+.textBox{
+    height:55px;
+    width:100%;
+    font-size:20pt;
+    font-family: 'Didact Gothic';
+}
+
 #voteskip_counter{
 	width:100%;
 	font-size: 20pt;

@@ -31,6 +31,24 @@
             return true;
         }
     }
+    
+    $default = false;
+    if(!empty($_POST["def"])){
+        $default = true;
+    }
+    
+    $code = 0;
+    if(!empty($_POST["captchacode"])){
+        $code = $_POST["captchacode"];
+    }
+    
+    $captchafail = false;
+    if($code > 0){
+        if($code != $_POST["captcha"]){
+            $captchafail = true;
+        }
+    }
+    
     $roomExists = true;
     $id = rand(1,99999);
     while($roomExists){
@@ -41,16 +59,28 @@
     $sql = "INSERT INTO rooms (id, date)
     VALUES (" . $id . ", NOW())";
  
-    if ($connection->query($sql) === TRUE) {
-        //"Table created successfully";
-        $cookie_name = "hostID";
-        $cookie_value = $id;
-        setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
-        } else {
-    echo "Error creating table: " . $connection->error;
+    if(!$captchafail && $default){
+        if ($connection->query($sql) === TRUE) {
+            //"Table created successfully";
+            $cookie_name = "hostID";
+            $cookie_value = $id;
+            setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
+            $clientip = $_SERVER['REMOTE_ADDR'];
+                $sql = "INSERT INTO `blacklist` (ip)
+                    VALUES ('$clientip')";
+                    if ($connection->query($sql) === TRUE) {
+                        //"Table created successfully";
+                    }
+            } else {
+        echo "Error creating table: " . $connection->error;
+        }
+        echo '<meta http-equiv="refresh" content="0; url=./host.php">';
+    }else if($captchafail){
+        echo '<meta http-equiv="refresh" content="0; url=./index.php?newroom=captcha">';
+    }else if(!$default){
+        echo '<meta http-equiv="refresh" content="0; url=./index.php?newroom=miss">';
     }
     $connection->close();
     ?>
-    <meta http-equiv="refresh" content="0; url=./host.php">
     </head>
 </html>

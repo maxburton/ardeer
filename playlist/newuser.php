@@ -11,9 +11,28 @@
 
     $database = mysqli_select_db($connection, DB_DATABASE);
     
+   
+    
     $name = "";
-    if( $_GET["name"]){
-        $name = $_GET["name"];
+    if(!empty($_POST["name"])){
+        $name = $_POST["name"];
+    }
+    
+    $default = false;
+    if(!empty($_POST["def"])){
+        $default = true;
+    }
+    
+    $code = 0;
+    if(!empty($_POST["captchacode"])){
+        $code = $_POST["captchacode"];
+    }
+    
+    $captchafail = false;
+    if($code > 0){
+        if($code != $_POST["captcha"]){
+            $captchafail = true;
+        }
     }
     
     $falseName = true;
@@ -24,7 +43,7 @@
     
     $sql = "INSERT INTO users (name, date)
     VALUES ('$name', NOW())";
-    if($falseName == false){
+    if(!$falseName && !$captchafail && $default){
         if ($connection->query($sql) === TRUE) {
             //"Table created successfully";
             $last_id = $connection->insert_id;
@@ -32,12 +51,23 @@
             $cookie_value = $last_id;
             setcookie($cookie_name, $cookie_value, time() + (86400), "/"); // 86400 = 1 day
             setcookie("username", $name, time() + (86400), "/"); // 86400 = 1 day
+            
+            $clientip = $_SERVER['REMOTE_ADDR'];
+            $sql = "INSERT INTO `blacklist` (ip)
+                VALUES ('$clientip')";
+                if ($connection->query($sql) === TRUE) {
+                    //"Table created successfully";
+                }
             echo '<meta http-equiv="refresh" content="0; url=./index.php?joined=true">';
             } else {
         echo "Error creating table: " . $connection->error;
         }
-    }else{
+    }else if($falsename){
         echo '<meta http-equiv="refresh" content="0; url=./index.php?joined=false">';
+    }else if($captchafail){
+        echo '<meta http-equiv="refresh" content="0; url=./index.php?joined=captcha">';
+    }else if(!$default){
+        echo '<meta http-equiv="refresh" content="0; url=./index.php?joined=miss">';
     }
     $connection->close();
     ?>
