@@ -34,7 +34,9 @@
     </head>
     
     <body>
-        <?php if(isset($_COOKIE["hostID"])) {
+        <?php 
+		session_start();
+		if(isset($_COOKIE["hostID"])) {
         echo "<h1> Room " . $_COOKIE["hostID"] . "</h1>";}
 		$videoid = 0;
 		$videourl = "null";
@@ -52,20 +54,62 @@
                     $position = $row[1];
 					$found = true;
 				}
-                //printf ("%s \n",$row[0]);
             }
         mysqli_free_result($result);
         }
+		$defaultorder = array();
+		$totaldefault = 0;
+		$indexarray = array();
+		if(!$found){
+			if(!$_SESSION["defaultorder"]){
+				$sql="SELECT COUNT(*) FROM `defaultplaylist`";
+				if ($result=mysqli_query($connection,$sql)){
+					while ($row=mysqli_fetch_row($result)){
+						$totaldefault = $row[0];
+					}
+				}
+				for($i = 0; $i<$totaldefault; $i++){
+					array_push($indexarray, $i);
+				}				
+				$sql="SELECT id,videoid FROM `defaultplaylist`";
+				if ($result=mysqli_query($connection,$sql)){
+					while ($row=mysqli_fetch_row($result)){
+						$pick = rand(0,sizeof($indexarray)-1);
+						$entry = array($indexarray[$pick],$row[1]);
+						array_splice($indexarray, $pick, 1);
+						array_push($defaultorder,$entry);
+					}
+					sort($defaultorder);
+					$_SESSION["defaultorder"] = json_encode($defaultorder);
+					$defaultvideos = json_decode($_SESSION["defaultorder"]);
+					$videourl = $defaultvideos[0][1];
+					array_splice($defaultvideos, 0, 1);
+					$_SESSION["defaultorder"] = json_encode($defaultvideos);
+				}
+			}else{
+				$defaultvideos = json_decode($_SESSION["defaultorder"]);
+				$videourl = $defaultvideos[0][1];
+				array_splice($defaultvideos, 0, 1);
+				if(sizeof($defaultvideos) <= 0){
+					unset($_SESSION['defaultorder']);
+				}else{
+					$_SESSION["defaultorder"] = json_encode($defaultvideos);
+				}
+			}
+		}
         ?>
 	<h3>
 	<?php 
+	$defaulton = false;
 	$videotitle = getTitle($videourl);
 	if(strlen($videotitle) > 75){
 		$videotitleComingUp = substr($videotitleComingUp,0,75) . "...";
 	}
 	if ($found == false || $videourl == "null"){
-		echo "You've run out of videos! Add some then refresh the page.";
+		echo "Now playing default playlist. Add some songs to resume.";
+		$defaulton = true;
 	}else{
+		$defaulton = false;
 		echo $videotitle;
 	} ?>
 	</h3>
@@ -126,8 +170,8 @@
 		echo '<strong><p id="morevideos">+' . ($foundComingUp - 3) . ' more videos</p></strong>';
 	} else if($foundComingUp <= 0){
 		echo '
-		<strong><p id="title1">UK Top 40 [You\'ve run out of songs!]</p></strong>
-		<img id="thumb1" src="./nada.png">
+		<strong><p id="title1">Default Playlist [You\'ve run out of songs!]</p></strong>
+		<img id="thumb1" src="./default.png">
 		</td>
 		</tr>
 		<tr>
@@ -247,19 +291,17 @@
 	<?php
 	
 	
-	if ($found == false || $videourl == "null"){
-	} else{ 
-	
-	$sql = "INSERT INTO `room-position` (roomid, currentvideoid)
-    VALUES ('$roomid','$position') ON DUPLICATE KEY UPDATE currentvideoid='$position'";
-    
-    if ($connection->query($sql) === TRUE) {
-        //"Table created successfully";
-        } else {
-    echo "Error creating table: " . $connection->error;
-    }
-    $connection->close();
-	
+	if (!$defaulton){
+		$sql = "INSERT INTO `room-position` (roomid, currentvideoid)
+		VALUES ('$roomid','$position') ON DUPLICATE KEY UPDATE currentvideoid='$position'";
+		
+		if ($connection->query($sql) === TRUE) {
+			//"Table created successfully";
+			} else {
+			echo "Error creating table: " . $connection->error;
+		}
+		$connection->close();
+	}
 	
 	echo "
         //create youtube player
@@ -288,7 +330,6 @@
             }
         }
 		";
-	}
 	?>
     </script>
 	</td>
@@ -298,7 +339,7 @@
 				echo '
 				<button id="homeURL" class="submit-button" >Home</button>
 				</td></tr><tr><td>
-				<button id="skipbutton" class="submit-button" >Refresh</button>
+				<button id="skipbutton" class="submit-button" >Skip</button>
 				</td></tr><tr><td>
 				<button id="restart" class="submit-button">From The Top</button>
 				</td>';
