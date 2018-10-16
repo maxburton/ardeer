@@ -68,7 +68,9 @@
         echo '<meta http-equiv="refresh" content="0; url=./index.php?joined=captcha">';
     }else if(!$default){
         echo '<meta http-equiv="refresh" content="0; url=./index.php?joined=miss">';
-    }
+    }else{
+		echo '<meta http-equiv="refresh" content="0; url=./index.php?joined=false">';
+	}
     $connection->close();
     ?>
     </head>

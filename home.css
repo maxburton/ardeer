@@ -1,0 +1,15 @@
+h1{
+	width:100%;
+	font-size: 72pt;
+	text-align: center;
+}
+
+ul {
+	list-style-type: none;
+	font-size: 64pt;
+	text-align: center;
+}
+
+li{
+	padding-bottom: 36px;
+}

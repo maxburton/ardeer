@@ -1,0 +1,123 @@
+#title{
+	font-family: 'Nosifer';
+}
+
+#question{
+	text-align:center;
+	font-size:42px;
+	font-family: 'Nosifer';
+	visibility:hidden;
+	padding-bottom:25px;
+}
+
+.result{
+	text-align:center;
+	font-size:42px;
+	font-family: 'Nosifer';
+	visibility:hidden;
+	padding-bottom:25px;
+}
+
+.answer{
+	text-align:center;
+	font-size:48px;
+	font-family: 'Eater';
+	visibility:hidden;
+}
+
+.timer{
+	color: red;
+	text-align:center;
+	font-size:48px;
+	font-family: 'Orbitron';
+	visibility:hidden;
+}
+
+.hint{
+	text-align:center;
+	font-size:16px;
+	font-family: 'Orbitron';
+	padding-bottom:8px;
+}
+
+#info{
+	text-align:center;
+	font-size:42px;
+	font-family: 'Orbitron';
+}
+
+
+#footer {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+	text-align:center;
+}
+
+
+
+/* font scales depending on device screen size */
+
+/* xs < 768 */
+@media screen and (max-width: 767px) {
+    .answer {
+        font-size: 24px;
+    }
+	#question{
+		font-size: 20px;
+	}
+	.timer{
+		font-size: 24px;
+	}
+	#info{
+		font-size:18px;
+	}
+}
+
+/* sm */
+@media screen and (min-width: 768px) {
+    .answer {
+        font-size: 30px;
+    }
+	#question{
+		font-size: 28px;
+	}
+	.timer{
+		font-size: 30px;
+	}
+	#info{
+		font-size: 24px;
+	}
+}
+
+/* md */
+@media screen and (min-width: 992px) {
+    .answer {
+        font-size: 40px;
+    }
+	#question{
+		font-size: 36px;
+	}
+	.timer{
+		font-size: 40px;
+	}
+	#info{
+		font-size:32px;
+	}
+}
+
+/* lg */
+@media screen and (min-width: 1200px) {
+    .answer {
+        font-size: 48px;
+    }
+	#question{
+		font-size: 42px;
+	}
+	.timer{
+		font-size: 48px;
+	}
+	#info{
+		font-size:42px;
+	}
+}

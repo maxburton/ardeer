@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Insanity Quotient</title>
+	<meta charset="utf-8"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link href='https://fonts.googleapis.com/css?family=Eater' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Nosifer' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet'>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+	
+</head>
+
+
+<body>
+	<div class="jumbotron text-center">
+		<h1 id="title">Insanity Quotient</h1>
+	</div>
+	<div class="container" id="answergrid">
+		<div class="row">
+			<div class="col-sm-12" id="question">Question</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8 answer" id="answer1">Answer 1</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4 answer" id="answer2">Answer 2</div>
+			<div class="col-sm-4 timer" id="timer">00:01:00</div>
+			<div class="col-sm-4 answer" id="answer3">Answer 3</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-2"></div>
+			<div class="col-sm-8 answer" id="answer4">Answer 4</div>
+			<div class="col-sm-2"></div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 result" id="result"></div>
+		</div>
+	</div>
+	
+	<div class="container" id="footer">
+	<div class="row">
+		<div class="col-sm-12 hint" id="info"></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 hint" id="hint">Use arrow keys or tap to select your answer.</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<button type="button" class="btn btn-primary" id="start">Start</button>
+		</div>
+	</div>
+	</div>
+<script src="insanity.js"></script>
+</body>
+</html>

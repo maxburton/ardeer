@@ -1,0 +1,39 @@
+<html>
+    <head>
+    <title>Battle for Wilno</title>
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="./latushka.css">
+	<link href='https://fonts.googleapis.com/css?family=Arvo' rel='stylesheet'>
+	<script src="/playlist/jquery-3.3.1.min.js"></script>
+    </head>
+	
+	<script src="latushka.js"></script>
+	
+	<body>
+		<h1>The Battle for Wilno</h1>
+		<h2>Poland has invaded Vilnius and converted it into Wilno! As a last ditch effort, The Lietuvan Government (aka Latushka) has sent you to Kaliningrad in an attempt to lure the Poles away from the heartland. Use your didelis skills to earn cash and ensnare the Polish threat once and for all.</h2>
+		<h5>(P.S. Litas is now the currency and it ain't doing so good so that's why everything costs so damn much)</h5>
+		<table width="100%" class="counters">
+			<tr>
+				<td><p class="counters" id="cash">1000 Lt</p></td><td><p class="counters" id="poles">0/543060 Poles Lured</p></td>
+		</table>
+		<button id="dig" class="submit-button" >Dig for Underground Water</button>
+		<p id="digOutcome"></p>
+		<h6>Shop:</h6>
+		<table width="100%">
+			<tr>
+				<td> <h3>Item</h3> </td> <td> <h3>Description</h3> </td> <td> <h3>Effect</h3> </td> <td> <h3>Cost</h3> </td> <td> <h3>Quantity Owned</h3> </td>
+			</tr>
+			<tr>
+				<td> <button id="salt" class="submit-button" >Salt Shaker</button> </td> <td> <h4>Because you can never be too salty</h4> </td> <td> <h4>+10% Cash from Underground Water</h4> </td> <td> <h4 id="saltPrice">100</h4> </td> <td> <h4 id="saltQuantity"> </h4> </td>
+			</tr>
+			<tr>
+				<td> <button id="helmet" class="submit-button" >German Army Helmet</button> </td> <td> <h4>Durable, Fashionable, AND you can use it as a soup bowl</h4> </td> <td> <h4>+5% Dig Success</h4> </td> <td> <h4 id="helmetPrice">50</h4> </td> <td> <h4 id="helmetQuantity"> </h4> </td>
+			</tr>
+			<tr>
+				<td> <button id="worker" class="submit-button" >Minimum Wage Worker</button> </td> <td> <h4>Don't worry, his tears only make the water saltier</h4> </td> <td> <h4>+1 Dig p/s</h4> </td> <td> <h4 id="workerPrice">200 + 20 p/min</h4> </td> <td> <h4 id="workerQuantity"> </h4> </td>
+			</tr>
+		</table>
+		<button id="delete" class="submit-button" >Delete</button>
+	</body>
+</html>
